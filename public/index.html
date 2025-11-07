@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مساعد الطلاب</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 60%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    #answer {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      white-space: pre-wrap;
+      text-align: left;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>مساعد الطلاب</h1>
+  <input type="text" id="question" placeholder="اكتب السؤال هنا">
+  <button onclick="askQuestion()">اسأل</button>
+
+  <div id="answer">ستظهر الإجابة هنا...</div>
+
+  <script>
+    async function askQuestion() {
+      const question = document.getElementById("question").value.trim();
+      const answerDiv = document.getElementById("answer");
+
+      if (!question) {
+        answerDiv.innerText = "الرجاء إدخال سؤال.";
+        return;
+      }
+
+      answerDiv.innerText = "جارٍ معالجة السؤال...";
+
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        answerDiv.innerText = data.answer;
+
+      } catch (error) {
+        console.error("Frontend Error:", error);
+        answerDiv.innerText = "حدث خطأ أثناء إرسال السؤال.";
+      }
+    }
+  </script>
+</body>
+</html>
