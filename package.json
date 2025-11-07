@@ -1,0 +1,17 @@
+{
+  "name": "deepseek-cloud-app",
+  "version": "1.0.0",
+  "description": "تطبيق سحابي للطلاب باستخدام DeepSeek AI",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["deepseek", "ai", "students", "cloud"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.4.1"
+  }
+}
